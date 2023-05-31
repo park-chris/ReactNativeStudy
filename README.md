@@ -9,3 +9,9 @@
 - 기술 : React Native, Hook
 
 
+### 2. kakao-friends-clone
+- FlatList를 이용한 카카오톡 친구창 클론
+- 기술 : FlatList, props, react-native-iphone-x-helper, react-native-safe-area-context
+ 
+
+
