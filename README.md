@@ -14,4 +14,8 @@
 - 기술 : FlatList, props, react-native-iphone-x-helper, react-native-safe-area-context
  
 
+### 3. calculator
+- 간단한 계산기 앱
+- 기술 : Hook
+ 
 
