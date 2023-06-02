@@ -1,4 +1,4 @@
-# ReactNativeStudy
+4# ReactNativeStudy
 패스트캠퍼스 React Native 강의 코드 및 설명 정리 
 
 <br><br>
@@ -17,5 +17,11 @@
 ### 3. calculator
 - 간단한 계산기 앱
 - 기술 : Hook
+ 
+
+
+### 4. todo-app
+- 달력을 클릭하면 특정 날짜의 todo 조회, 생성, 삭제 가능
+- 기술 : AsyncStorage, Hook, dayjs, react-native-iphone-x-helper, FlatList, Touch, Alert, TouchableOpacity
  
 
