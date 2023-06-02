@@ -14,6 +14,7 @@ const Column = ({
     disabled,
     onPress,
     isSelected,
+    hasTodo,
 }) => {
     return (
         <TouchableOpacity
@@ -27,7 +28,7 @@ const Column = ({
                 backgroundColor: isSelected ? "#c2c2c2" : "transparent",
                 borderRadius: columnSize / 2,
             }}>
-            <Text style={{ color, opacity }}>{text}</Text>
+            <Text style={{ color, opacity, fontWeight: hasTodo ? "bold" : "normal" }}>{text}</Text>
         </TouchableOpacity>
     )
 }
@@ -46,6 +47,7 @@ const ArrowButton = ({ iconName, onPress }) => {
 export default ({
     columns,
     selectedDate,
+    todoList,
     onPressLeftArrow,
     onPressRightArrow,
     onPressHeaderDate,
@@ -92,6 +94,7 @@ export default ({
         const isCurrentMonth = dayjs(date).isSame(selectedDate, 'month');
         const onPress = () => onPressDate(date);
         const isSelected = dayjs(date).isSame(selectedDate, 'date');
+        const hasTodo = todoList.find(todo => dayjs(todo.date).isSame(date), 'date');
         return (
             <Column
                 text={dateText}
@@ -99,6 +102,7 @@ export default ({
                 opacity={isCurrentMonth ? 1 : 0.4}
                 onPress={onPress}
                 isSelected={isSelected}
+                hasTodo={hasTodo}
             />
         )
     }

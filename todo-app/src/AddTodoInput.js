@@ -9,7 +9,9 @@ export default ({
     value,
     onChangeText,
     placeholder,
-    onPressAdd
+    onPressAdd,
+    onSubmitEditing,
+    onFocus
 }) => {
     return (
         <View style={{
@@ -26,6 +28,9 @@ export default ({
                     padding: 5,
                     borderColor:"#595959",
                 }}
+                onSubmitEditing={onSubmitEditing}
+                blurOnSubmit={false}
+                onFocus={onFocus}
             />
             <TouchableOpacity onPress={onPressAdd} style={{padding: 5, backgroundColor:"pink"}}>
 

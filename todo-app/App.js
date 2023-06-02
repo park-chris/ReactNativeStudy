@@ -1,6 +1,6 @@
-import { FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View, StatusBar, Image, KeyboardAvoidingView, Platform, Pressable, Keyboard } from 'react-native';
+import { FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View, StatusBar, Image, KeyboardAvoidingView, Platform, Pressable, Keyboard, Alert } from 'react-native';
 import dayjs, { Dayjs } from 'dayjs';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Ionicons } from '@expo/vector-icons';
 
@@ -29,41 +29,62 @@ export default function App() {
   } = useCalendar(now);
   const {
     todoList,
+    filteredTodoList,
     removeTodo,
     toggleTodo,
+    addTodo,
+    resetInput,
     input,
-    setInput
+    setInput,
   } = useTodoList(selectedDate);
 
   const columns = getCalendarColumns(selectedDate);
+
+  const flatListRef = useRef(null);
+
   const onPressLeftArrow = subtract1Month;
   const onPressHeaderDate = showDatePicker;
   const onPressRightArrow = add1Month;
   const onPressDate = setSelectedDate;
-
 
   const ListHeaderComponent = () => (
     <View>
 
       <Calendar
         columns={columns}
+        todoList={todoList}
         selectedDate={selectedDate}
         onPressLeftArrow={onPressLeftArrow}
         onPressRightArrow={onPressRightArrow}
         onPressHeaderDate={onPressHeaderDate}
         onPressDate={onPressDate}
       />
-      <Margin height={40} />
       <View
-        style={{ width: 4, height: 4, borderRadius: 4 / 2, backgroundColor: "#a3a3a3", alignSelf: "center", }}
+        style={{ width: 4, height: 4, borderRadius: 4 / 2, backgroundColor: "#a3a3a3", alignSelf: "center", margin: 10,}}
       />
-      <Margin height={40} />
     </View>
   )
   const renderItem = ({ item: todo }) => {
     const isSuccess = todo.isSuccess;
+    const onPress = () => toggleTodo(todo.id);
+    const onLongPress = () => {
+
+      Alert.alert("삭제하시겠어요?", "", [
+        {
+          style: "cancel",
+          text: "아니오"
+        },
+        {
+          text: "네",
+          onPress: () => removeTodo(todo.id),
+        }
+      ])
+      
+    }
     return (
-      <View
+      <Pressable
+        onPress={onPress}
+        onLongPress={onLongPress}
         style={{
           width: ITEM_WIDTH,
           // backgroundColor: todo.id % 2 === 0 ? "pink" : "yellow",
@@ -82,15 +103,34 @@ export default function App() {
             size={17}
             color={isSuccess ? "#595959" : "#bfbfbf"} />
         </TouchableOpacity>
-      </View>
+      </Pressable>
     )
   }
 
+  const scrollToEnd = () => {
+    if (flatListRef.current?.props.data.length !==0) {
 
+      setTimeout(() => {
+        flatListRef.current?.scrollToEnd({ animated: true });
+      }, 300);
+    }
+  }
 
   const onPressAdd = () => {
-
+    addTodo(selectedDate);
+    resetInput();
+    scrollToEnd();
   }
+
+  const onSubmitEditing = () => {
+    addTodo();
+    resetInput();
+    scrollToEnd();
+  }
+
+  const onFocus = ()=> {
+  scrollToEnd();
+  };
 
   return (
     <Pressable style={styles.container} onPress={Keyboard.dismiss}>
@@ -106,14 +146,16 @@ export default function App() {
       />
 
       <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? "padding" : "height"}>
+        behavior={Platform.OS === 'ios' ? "padding" : "height"}>
 
-        <View style={{flex:1}}>
+        <View style={{ flex: 1 }}>
           <FlatList
-            data={todoList}
+          ref={flatListRef}
+            data={filteredTodoList}
             ListHeaderComponent={ListHeaderComponent}
-            contentContainerStyle={{ paddingTop: statusBarHeight }}
+            contentContainerStyle={{ paddingTop: statusBarHeight + 30}}
             renderItem={renderItem}
+            showsVerticalScrollIndicator={false}
           />
 
           <AddTodoInput
@@ -121,6 +163,8 @@ export default function App() {
             onChangeText={setInput}
             placeholder={`${dayjs(selectedDate).format('M.D')}에 추가할 투두`}
             onPressAdd={onPressAdd}
+            onSubmitEditing={onSubmitEditing}
+            onFocus={onFocus}
           />
         </View>
       </KeyboardAvoidingView>
