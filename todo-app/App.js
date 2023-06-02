@@ -1,50 +1,18 @@
-import { FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View, StatusBar } from 'react-native';
-import { getCalendarColumns, getDayText, getDayColor } from './src/utils';
-import dayjs from 'dayjs';
-import { runPracticeDayjs } from './src/practice-dayjs';
+import { FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View, StatusBar, Image, KeyboardAvoidingView, Platform, Pressable, Keyboard } from 'react-native';
+import dayjs, { Dayjs } from 'dayjs';
 import { useEffect, useState } from 'react';
-import Margin from './src/Margin';
-import { SimpleLineIcons } from '@expo/vector-icons';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { Ionicons } from '@expo/vector-icons';
+
+import Margin from './src/Margin';
+import { getCalendarColumns, getDayText, getDayColor, statusBarHeight, ITEM_WIDTH, bottomSpace } from './src/utils';
+import { runPracticeDayjs } from './src/practice-dayjs';
 import { useCalendar } from './src/hook/use-calendar';
+import { useTodoList } from './src/hook/use-todo-list';
+import Calendar from './src/Calendar';
+import AddTodoInput from './src/AddTodoInput';
 
 
-const marginTop = Platform.OS === "android" ? StatusBar.currentHeight : 0
-
-const columnSize = 35;
-
-const Column = ({
-  text,
-  color,
-  opacity,
-  disabled,
-  onPress,
-  isSelected,
-}) => {
-  return (
-    <TouchableOpacity
-      disabled={disabled}
-      onPress={onPress}
-      style={{
-        width: columnSize,
-        height: columnSize,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: isSelected ? "#c2c2c2" : "transparent",
-        borderRadius: columnSize / 2,
-      }}>
-      <Text style={{ color, opacity }}>{text}</Text>
-    </TouchableOpacity>
-  )
-}
-
-const ArrowButton = ({ iconName, onPress }) => {
-  return (
-    <TouchableOpacity onPress={onPress} style={{ paddingHorizontal: 20, paddingVertical: 15 }}>
-      <SimpleLineIcons name={iconName} size={15} color="#404040" />
-    </TouchableOpacity>
-  )
-}
 
 export default function App() {
 
@@ -59,81 +27,113 @@ export default function App() {
     subtract1Month,
     add1Month
   } = useCalendar(now);
+  const {
+    todoList,
+    removeTodo,
+    toggleTodo,
+    input,
+    setInput
+  } = useTodoList(selectedDate);
 
   const columns = getCalendarColumns(selectedDate);
+  const onPressLeftArrow = subtract1Month;
+  const onPressHeaderDate = showDatePicker;
+  const onPressRightArrow = add1Month;
+  const onPressDate = setSelectedDate;
 
-  const onPressLeftArrow = subtract1Month
-  const onPressRightArrow = add1Month
 
-  const ListHeaderComponent = () => {
-    const currentDateText = dayjs(selectedDate).format("YYYY.MM.DD.");
+  const ListHeaderComponent = () => (
+    <View>
+
+      <Calendar
+        columns={columns}
+        selectedDate={selectedDate}
+        onPressLeftArrow={onPressLeftArrow}
+        onPressRightArrow={onPressRightArrow}
+        onPressHeaderDate={onPressHeaderDate}
+        onPressDate={onPressDate}
+      />
+      <Margin height={40} />
+      <View
+        style={{ width: 4, height: 4, borderRadius: 4 / 2, backgroundColor: "#a3a3a3", alignSelf: "center", }}
+      />
+      <Margin height={40} />
+    </View>
+  )
+  const renderItem = ({ item: todo }) => {
+    const isSuccess = todo.isSuccess;
     return (
-      <View>
-        {/* <YYYY.MM.DD> */}
-        <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
-          <ArrowButton iconName={"arrow-left"} onPress={onPressLeftArrow} />
-          <TouchableOpacity onPress={showDatePicker}>
-            <Text style={{ fontSize: 20, color: "#404040" }}>{currentDateText}</Text>
-          </TouchableOpacity>
-          <ArrowButton iconName={"arrow-right"} onPress={onPressRightArrow} />
-        </View>
-
-        <View style={{ flexDirection: 'row' }}>
-          {[0, 1, 2, 3, 4, 5, 6].map(day => {
-            const dayText = getDayText(day);
-            const color = getDayColor(day);
-            return (
-              <Column
-                key={`day-${day}`}
-                text={dayText}
-                color={color}
-                opacity={1}
-                disabled={true}
-              />
-            )
-          })}
-        </View>
-
+      <View
+        style={{
+          width: ITEM_WIDTH,
+          // backgroundColor: todo.id % 2 === 0 ? "pink" : "yellow",
+          alignSelf: "center",
+          paddingVertical: 10,
+          paddingHorizontal: 5,
+          borderBottomWidth: 0.5,
+          borderColor: "#a6a6a6",
+          flexDirection: "row",
+          alignItems: "center",
+        }}>
+        <Text style={{ flex: 1, fontSize: 14, color: "#595959" }}>{todo.content}</Text>
+        <TouchableOpacity>
+          <Ionicons
+            name="checkmark"
+            size={17}
+            color={isSuccess ? "#595959" : "#bfbfbf"} />
+        </TouchableOpacity>
       </View>
     )
   }
 
-  const renderItem = ({ item: date }) => {
-    const dateText = dayjs(date).get('date');
-    const day = dayjs(date).get('day');
-    const color = getDayColor(day);
-    const isCurrentMonth = dayjs(date).isSame(selectedDate, 'month');
-    const onPress = () => {
-      setSelectedDate(date);
-    }
-    const isSelected = dayjs(date).isSame(selectedDate, 'date');
-    return (
-      <Column
-        text={dateText}
-        color={color}
-        opacity={isCurrentMonth ? 1 : 0.4}
-        onPress={onPress}
-        isSelected={isSelected}
-      />
-    )
+
+
+  const onPressAdd = () => {
+
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <FlatList
-        keyExtractor={(_, index) => `column-${index}`}
-        data={columns}
-        renderItem={renderItem}
-        numColumns={7}
-        ListHeaderComponent={ListHeaderComponent}
+    <Pressable style={styles.container} onPress={Keyboard.dismiss}>
+      <Image
+        source={{
+          uri: "https://marketplace.canva.com/EAEsTd5yAl8/1/0/900w/canva-%ED%8C%8C%EB%9E%80%EC%83%89-%EB%B0%8F-%EB%B6%84%ED%99%8D%EC%83%89-%EB%B6%80%EB%93%9C%EB%9F%AC%EC%9A%B4-%EC%88%98%EC%B1%84%ED%99%94-%EB%AC%B8%EA%B5%AC-%EC%97%86%EB%8A%94-%ED%9C%B4%EB%8C%80%ED%8F%B0-%EB%B0%B0%EA%B2%BD%ED%99%94%EB%A9%B4-3B2p5wCkUHo.jpg"
+        }}
+        style={{
+          width: "100%",
+          height: "100%",
+          position: "absolute",
+        }}
       />
+
+      <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? "padding" : "height"}>
+
+        <View style={{flex:1}}>
+          <FlatList
+            data={todoList}
+            ListHeaderComponent={ListHeaderComponent}
+            contentContainerStyle={{ paddingTop: statusBarHeight }}
+            renderItem={renderItem}
+          />
+
+          <AddTodoInput
+            value={input}
+            onChangeText={setInput}
+            placeholder={`${dayjs(selectedDate).format('M.D')}에 추가할 투두`}
+            onPressAdd={onPressAdd}
+          />
+        </View>
+      </KeyboardAvoidingView>
+
+      <Margin height={bottomSpace} />
+
       <DateTimePickerModal
         isVisible={isDatePickerVisible}
         mode="date"
         onConfirm={handleConfirm}
         onCancel={hideDatePicker}
       />
-    </SafeAreaView>
+    </Pressable>
   );
 }
 
@@ -142,7 +142,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: marginTop,
+    justifyContent: 'center'
   },
 });

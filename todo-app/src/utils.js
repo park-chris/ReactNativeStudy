@@ -1,4 +1,13 @@
+      {/* iOS 시뮬레이터 키보드 on/off cmd + shift + k */}
+
+
 import dayjs from "dayjs";
+import { getStatusBarHeight, getBottomSpace } from 'react-native-iphone-x-helper';
+import { StatusBar } from "react-native";
+
+export const statusBarHeight = Platform.OS === "android" ? StatusBar.currentHeight : getStatusBarHeight();
+export const bottomSpace = getBottomSpace();
+export const ITEM_WIDTH = 220;
 
 export const fillEmptyColumns = (columns, start, end) => {
   const filledColumns = columns.slice(0);
