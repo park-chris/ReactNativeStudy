@@ -26,10 +26,10 @@
 
 
 <div width="100%" >
-  <img src="https://github.com/park-chris/ReactNativeStudy/assets/72954404/38b6f6f1-ce54-4b94-a55e-5e90f11adc83" width="200px" align="left"/>
-  <img src="https://github.com/park-chris/ReactNativeStudy/assets/72954404/42afd05e-1dfa-4e33-8302-e68bbd676e5a" width="200px"  align="center"/>
-  <img src="https://github.com/park-chris/ReactNativeStudy/assets/72954404/081a615e-9883-44a5-a502-1e7d297e7082" width="200px"  align="center"/>
-   <img src="https://github.com/park-chris/ReactNativeStudy/assets/72954404/75c3bf61-0615-416b-a391-89f87a284290" width="200px"  align="center"/>
+  <img src="https://github.com/park-chris/ReactNativeStudy/assets/72954404/38b6f6f1-ce54-4b94-a55e-5e90f11adc83" width="20%" align="left"/>
+  <img src="https://github.com/park-chris/ReactNativeStudy/assets/72954404/42afd05e-1dfa-4e33-8302-e68bbd676e5a" width="20%"  align="center"/>
+  <img src="https://github.com/park-chris/ReactNativeStudy/assets/72954404/081a615e-9883-44a5-a502-1e7d297e7082" width="20%"  align="center"/>
+   <img src="https://github.com/park-chris/ReactNativeStudy/assets/72954404/75c3bf61-0615-416b-a391-89f87a284290" width="20%"  align="center"/>
  </div>
 
 
@@ -39,9 +39,9 @@
 - 기술 : AsyncStorage, Hook, SafeAreaView, FlatList, Alert, TouchableOpacity, ImagePicker, Modal, Pressable
 
 <div width="100%" >
-  <img src="https://github.com/park-chris/ReactNativeStudy/assets/72954404/23e1ecf9-d73a-4b89-b80f-52ad2bf46dea" width="200px" align="left"/>
-  <img src="https://github.com/park-chris/ReactNativeStudy/assets/72954404/b38d384c-7bd9-4f8b-9dbd-ccacdb802006" width="200px"  align="center"/>
-  <img src="https://github.com/park-chris/ReactNativeStudy/assets/72954404/58806bc1-4354-4939-ae59-a85fe84ce6d4" width="200px"  align="center"/>
+  <img src="https://github.com/park-chris/ReactNativeStudy/assets/72954404/23e1ecf9-d73a-4b89-b80f-52ad2bf46dea" width="20%" align="left"/>
+  <img src="https://github.com/park-chris/ReactNativeStudy/assets/72954404/b38d384c-7bd9-4f8b-9dbd-ccacdb802006" width="20%"  align="center"/>
+  <img src="https://github.com/park-chris/ReactNativeStudy/assets/72954404/58806bc1-4354-4939-ae59-a85fe84ce6d4" width="20%"  align="center"/>
  </div>
 
 
