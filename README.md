@@ -21,7 +21,7 @@
 
 
 ### 4. todo-app
-- 달력을 클릭하면 특정 날짜의 todo 조회, 생성, 삭제 가능
+- 달력을 클릭하면 특정 날짜의 todo 조회, 생성, 삭제 기능
 - 기술 : AsyncStorage, Hook, dayjs, react-native-iphone-x-helper, FlatList, Touch, Alert, TouchableOpacity
 
 
@@ -30,4 +30,17 @@
   <img src="https://github.com/park-chris/ReactNativeStudy/assets/72954404/42afd05e-1dfa-4e33-8302-e68bbd676e5a" width="200px"  align="center"/>
   <img src="https://github.com/park-chris/ReactNativeStudy/assets/72954404/081a615e-9883-44a5-a502-1e7d297e7082" width="200px"  align="center"/>
    <img src="https://github.com/park-chris/ReactNativeStudy/assets/72954404/75c3bf61-0615-416b-a391-89f87a284290" width="200px"  align="center"/>
+ </div>
+
+
+
+### 4. my-gallery
+- 앨범 추가 및 삭제, 각 앨범에 이미지 추가 및 삭제 기능
+- 기술 : AsyncStorage, Hook, SafeAreaView, FlatList, Alert, TouchableOpacity, ImagePicker, Modal, Pressable
+
+<div width="100%" >
+  <img src="" width="200px" align="left"/>
+  <img src="" width="200px"  align="center"/>
+  <img src="" width="200px"  align="center"/>
+   <img src="" width="200px"  align="center"/>
  </div>
