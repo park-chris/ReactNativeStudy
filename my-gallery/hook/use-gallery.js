@@ -164,14 +164,12 @@ export const useGallery = () => {
         if (imagesFromStorage !== null) {
             const parsed = JSON.parse(imagesFromStorage);
             setImages(parsed)
-            console.log('imagesFromStorag', imagesFromStorage)
         }
 
         const albumsFromStorage = await AsyncStorage.getItem(ASYNC_KEY.ALBUMS);
         if (albumsFromStorage !== null) {
             const parsed = JSON.parse(albumsFromStorage);
             setAlbums(parsed)
-            console.log('albumsFromStorag', albumsFromStorage)
         }
     }
 

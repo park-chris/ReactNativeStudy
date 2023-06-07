@@ -7,13 +7,15 @@ export default ({
     onSubmitEditing,
     onPressBackdrop }) => {
     return (
-        <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible} >
-            <KeyboardAvoidingView
-                behavior={Platform.OS === "ios" ? "padding" : "height"}
-                style={{ flex: 1 }}>
+
+        <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : "height"}>
+
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible} >
+
                 <Pressable onPress={onPressBackdrop} style={{ flex: 1 }}>
 
                     <SafeAreaView style={{
@@ -30,10 +32,9 @@ export default ({
                             value={albumTitle} />
 
                     </SafeAreaView>
-
                 </Pressable>
-            </KeyboardAvoidingView>
 
-        </Modal>
+            </Modal>
+        </KeyboardAvoidingView>
     )
 }
