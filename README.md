@@ -1,4 +1,4 @@
-4# ReactNativeStudy
+# ReactNativeStudy
 패스트캠퍼스 React Native 강의 코드 및 설명 정리 
 
 <br><br>
@@ -39,8 +39,9 @@
 - 기술 : AsyncStorage, Hook, SafeAreaView, FlatList, Alert, TouchableOpacity, ImagePicker, Modal, Pressable
 
 <div width="100%" >
-  <img src="" width="200px" align="left"/>
-  <img src="" width="200px"  align="center"/>
-  <img src="" width="200px"  align="center"/>
-   <img src="" width="200px"  align="center"/>
+  <img src="https://github.com/park-chris/ReactNativeStudy/assets/72954404/23e1ecf9-d73a-4b89-b80f-52ad2bf46dea" width="200px" align="left"/>
+  <img src="https://github.com/park-chris/ReactNativeStudy/assets/72954404/b38d384c-7bd9-4f8b-9dbd-ccacdb802006" width="200px"  align="center"/>
+  <img src="https://github.com/park-chris/ReactNativeStudy/assets/72954404/58806bc1-4354-4939-ae59-a85fe84ce6d4" width="200px"  align="center"/>
  </div>
+
+
