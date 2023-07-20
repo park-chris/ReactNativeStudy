@@ -1,4 +1,4 @@
-# ReactNativeStudy
+# ReactNative Study
 패스트캠퍼스 React Native 강의 코드 및 설명 정리 
 
 <br><br>
